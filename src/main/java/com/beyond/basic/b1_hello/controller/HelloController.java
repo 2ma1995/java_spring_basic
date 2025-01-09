@@ -2,7 +2,7 @@ package com.beyond.basic.b1_hello.controller;
 
 import com.beyond.basic.b1_hello.domain.Hello;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+//import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -70,7 +70,22 @@ public class HelloController {
         model.addAttribute("modelName",inputName);
         return "helloworld2";
 }
+//  case7.화면에 return해 주되, 객체를 화면에 동적으로 세팅
+    @GetMapping("/model-param2")
+    public String modelParam2(@ModelAttribute Hello hello, Model model){
+        //model객체는 특정 데이터를 화면에 전달해주는 역할
+        //modelName이라는 키값에 value를 세팅하면 modelName:값 형태로 화면에 전달
+        model.addAttribute("modelHello",hello);
+        return "helloworld3";
+    }
 
-
-
+    //case 8. PathVariable방식을 통해 사용자로부터 값을 받아 화면 return
+    // 형식 : /hello/model-path/hongildong
+    // 예시 : /author/detail/1
+    // PathVariable방식은 url을 통해 자원구조를 명확하게 표현할때 사용. (좀더 restful한 방식)
+    @GetMapping("model-path/{inputName}")
+    public String modelPath(@PathVariable String inputName, Model model){
+        model.addAttribute("modelName",inputName);
+        return "helloworld2";
+    }
 }
